@@ -1,0 +1,294 @@
+// const name = require('./4-names');
+// const func = require('./5-utils');
+
+
+// func(name.firstName);
+// func(name.lastName)
+
+// // console.log(__dirname);
+
+// // setInterval(() => {
+// //    console.log("test data")
+// // },1000)
+
+// const os = require('os');
+
+// const user = os.userInfo();
+// console.log(user)
+
+// console.log(os.uptime())
+
+// const currentUser = {
+//     name: os.type(),
+//     release:os.release(),
+//     totalMem: os.totalmem(),
+//     freeMem:os.freemem()
+// }
+
+// console.log(currentUser)
+
+
+// const {readFileSync, writeFileSync} = require('fs');
+
+
+// const first = readFileSync('./container/first.txt','utf8');
+// const second = readFileSync("./container/second.txt",'utf8')
+
+// console.log(first)
+
+
+// writeFileSync("./container/result-sync",`Here is an example for ${first} and ${second}`)
+
+
+// const {readFile,writeFile}  = require('fs');
+
+// readFile('./container/first.txt','utf8',(err,result) => {
+//     if(err){
+//         console.log("error")
+//         return
+//     }
+// const first = result
+// readFile('./container/second.txt','utf8',(err,result) => {
+//     if(err){
+//         console.log(err);
+//         return 
+//     }
+// const second = result;
+// writeFile(
+//     './container/result-sync.txt',
+//     `Here is an example of ${first} and ${second}............................................................................................`, (err,result) => {
+//     if(err){
+//         console.log(err);
+//         return
+//     }
+//     console.log("done with writing")
+// })
+// })
+// })
+
+// console.log("done with the complete scenario")
+
+
+
+// const http = require("http");
+
+// const server = http.createServer((req,res) => {
+//     if(req.url === '/'){
+//         res.end("Hello World")
+//     }
+//     if(req.url === '/about'){
+//         res.end("about page")
+//     }
+//     res.end(`
+//     <h1>Hello World</h1>
+//     <p>We can't seem to find the page you are looking </p>
+//     <a href="/">back Home</a>
+//     `)
+
+// })
+
+// server.listen(5000)
+
+
+// const _ = require('lodash');
+
+// const items = [1,[1,2,3,[4,[5,[7]]]]]
+
+// const newItems = _.flattenDeep(items)
+
+// console.log(newItems);
+
+
+// const EventEmitter = require('events');
+// const eventEmitter = new EventEmitter();
+
+// eventEmitter.on('tutorial',() => {
+//     console.log('tutorial event has occured')
+// })
+
+// eventEmitter.emit('tutorial')
+
+
+// const readline = require('readline')
+
+// var rl = readline.createInterface(process.stdin, process.stdout);
+
+// let num1 = Math.floor((Math.random()*10) + 1)
+// let num2 = Math.floor((Math.random()*10) + 1)
+
+// let answer = num1 + num2
+
+
+// rl.question(`What is ${num1} + ${num2} ?`, (userInput) => {
+//     if(userInput.trim() == answer){
+//         console.log('answer is passed')
+//         rl.close()
+//     }
+//     else{
+//         rl.setPrompt('Answer is not correct. Please enter again: ')
+//         rl.prompt()
+//         rl.on('line',() => {
+//             if(userInput.trim() == answer){
+//                 console.log('answer is passed')
+//                 rl.close()
+//             }
+//             else{
+//                 rl.setPrompt('Answer is not correct')
+//                 rl.prompt()
+//             }
+//         })
+//     }
+// })
+
+
+// rl.on('close',() => {
+//     console.log('correct answer')
+// })
+
+
+const fs = require('fs')
+
+// fs.writeFile('./first.txt','Hello from Danish!', (err) =>{
+//        if(err){
+//         console.log(err);
+//        }
+//        else{
+//         console.log('file created successfully');
+//         fs.readFile('first.txt','utf-8',(err,file) =>{
+//               if(err){
+//                 console.log(err)
+//               }
+//               else{
+//                 console.log(file)
+//               }
+//         })
+//        }
+// })
+
+// fs.rename('./first.txt','./second.txt',(error) =>{
+//     if(error){
+//         console.log(error)
+//     }
+//     else{
+//         console.log('file name changed successfully')
+//     }
+// })
+
+// fs.appendFile('./first.txt','\nAdded line in the file',(err) =>{
+//     if(err){
+//         console.log(err)
+//     }
+//     else{
+//         console.log('line added successfully')
+//     }
+// })
+
+// fs.unlink('./second.txt',(err)=>{
+//     if(err){
+//         console.log(err)
+//     }
+//     else{
+//         console.log('file deleted successfully')
+//     }
+// })
+
+
+// fs.mkdir('tutorial',(err)=>{
+//     if(err){
+//         console.log(err)
+//     }
+//     else{
+//         fs.writeFileSync('./tutorial/text.txt','Write in file',(err,file) =>{
+//             if(err){
+//                 console.log(err)
+//             }
+//             else{
+//                 console.log("file created successfully")
+//             }
+//         })
+//     }
+// })
+
+// fs.unlink('./tutorial/text.txt',(err)=>{
+//     if(err){
+//         console.log(err)
+//     }
+//     else{
+//         console.log("file deleted successfully")
+//     }
+// })
+
+// fs.rmdir('tutorial',(err) =>{
+//     if(err){
+//         console.log(err)
+//     }
+//     else{
+//         console.log("remove directory")
+//     }
+// })
+
+
+// const readStream = fs.createReadStream('./first.txt','utf-8','write data on the file')
+// const writeStream = fs.createWriteStream('./second.txt')
+// readStream.pipe(writeStream)
+
+
+// const http = require('http')
+
+// const server = http.createServer((req,res) =>{
+//     if(req.url === '/'){
+//         res.write('Hello from Danish!')
+//         res.end()
+//     }
+//     else{
+//         res.write('hello from other domain')
+//         res.end()
+//     }
+// })
+
+// const port = 3000;
+
+// server.listen(port)
+
+// const express = require('express');
+// const path = require('path');
+// const bodyParser = require('body-parser')
+// const app = express();
+
+
+// app.use('/public',express.static(path.join(__dirname,'static')));
+
+// app.use(bodyParser.urlencoded({extended:false}))
+
+// app.get('/',(req,res) =>{
+//     res.sendFile(path.join(__dirname,'static','index.html'))
+// })
+
+// // app.get('/',(req,res) =>{
+// //     res.send("Hello danish soma")
+// // })
+
+// // app.get('/example',(req,res) =>{
+// //     res.send('hitting the example')
+// // })
+
+// // app.get('/example/:name/:age',(req,res) =>{
+// //     console.log(req.params)
+// //     res.send(req.params.name + "  " +req.params.age)
+// // })
+
+// app.post('/',(req,res) => {
+//       console.log(req.body);
+//       res.send('successfully posted data')
+// })
+
+// app.listen(3000);
+
+const express = require('express')
+const app = express();
+
+app.get('/',(req,res) =>{
+    res.send("server started")
+})
+
+app.listen(3000)

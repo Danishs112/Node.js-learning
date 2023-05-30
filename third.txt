@@ -1,0 +1,144 @@
+
+const fs = require('fs');
+
+// const data = fs.readFileSync('./data-folder/data.json','utf-8')
+// const dataObject =data;
+
+// const app = http.createServer((req,res) =>{
+//     const pathName = req.url;
+//     if(pathName === "/" || pathName === "/overview"){
+//         res.end("Overview Page")
+//     } else if(pathName === "/product"){
+//         res.end("This is the product page")
+//     }
+//     else if(pathName === "/data"){
+//         try{
+//            res.writeHead(200, {'Content-Type':'application/json'})
+//            res.end(dataObject)
+    
+//             // res.end(productData)
+//             // res.end("Data is send to the server")
+//         }
+//         catch(error){
+//             res.end(error)
+//         }
+ 
+       
+//     }
+//     else{
+//         res.writeHead(404,{
+//             'Content-Type':'text/html',
+//             'my-own-header':'hello world'
+//         })
+//         res.end("<h1>page not found!</h1>")
+//     }
+// })
+
+// app.listen(3000,() =>{
+//     console.log('Server is running on port 3000')
+// })
+
+// setTimeout(() =>{
+//     console.log("timeout 1");
+// },0)
+
+// setImmediate(() => console.log('set Immediate function'))
+
+// fs.readFile('./first.txt','utf-8',(err,data) =>{
+//     if(err){
+//         console.log(err)
+//     }
+//     console.log(data)
+// })
+
+// console.log("function")
+
+// const EventEmitter = require("events");
+
+// class Sever extends EventEmitter {
+//     constructor(){
+//         super()
+//     }
+// }
+
+// const myEmitter = new Sever();
+
+// myEmitter.on("test",() =>{
+//     console.log("data is triggered")
+// })
+
+// myEmitter.on("test",() =>{
+//     console.log("data is triggered again!")
+// })
+
+// myEmitter.on("test",(stock) =>{
+//     console.log(`${stock} is triggered`)
+// })
+
+// myEmitter.emit("test",9)
+
+
+// const http = require('http');
+// const server = http.createServer();
+
+
+// server.on('request',(req,res) =>{
+//     console.log("Request Received")
+//     res.end("Request received")
+// })
+
+// server.on('request',(req,res) =>{
+//     console.log("another request")
+//     res.end('Server closed')
+// })
+
+// server.on('close',(req,res) =>{
+//     res.end('close')
+// })
+
+// server.listen(8000, () =>{
+//     console.log("request succeded")
+// })
+// const server = require('http').createServer()
+
+// server.on("request",(req,res) =>{
+    // fs.readFile("./first.txt",'utf-8',(err,data) =>{
+    //     console.log(data)
+    //     res.end(data)
+    // })
+    
+//     const readable = fs.createReadStream('./first.txt');
+//     readable.on('data',(chunk) =>{
+//         res.write(chunk)
+//     })
+
+//     readable.on('end',(data) =>{
+//         res.end()
+//     })
+
+//     readable.on("error",(err) =>{
+//         console.log(err);
+//         res.statusCode = 500;
+//         res.end("status file completed")
+//     })
+// }).listen(8000)
+
+
+const superagent = require('superagent')
+
+fs.readFile('./first.txt','utf-8',(err,data) =>{
+  superagent
+  .get(`https://dog.ceo/api/breed/${data}/images/random`)
+  .end((err,res) =>{
+      if(err){
+        console.log(err.message)
+      }
+      fs.writeFile('third.txt',res.body.message,err, (err,data) =>{
+          if(err) {
+            return console.log(err.message)
+          }
+          console.log('data is printed to the file')
+      })
+  })
+  
+})
