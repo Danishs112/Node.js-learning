@@ -8,9 +8,7 @@ app.use(express.json())
 
 const tours = JSON.parse(fs.readFileSync('./test.json'))
 
-
-
-app.get("/api/v1/tours",(req,res) =>{
+const getAllData = (req,res) =>{
   res.status(200).json({
     status:200,
     results : tours.length,
@@ -18,10 +16,9 @@ app.get("/api/v1/tours",(req,res) =>{
       tours
     }
   })
-})
+}
 
-
-app.get("/api/v1/tours/:id",(req,res) =>{
+const getDataById = (req,res) =>{
    
   const tour= tours.find(element => element.id == req.params.id)
   if(!tour){
@@ -38,10 +35,9 @@ app.get("/api/v1/tours/:id",(req,res) =>{
       tour
     }
   })
-})
+}
 
-
-app.post("/api/v1/tours",(req,res) =>{
+const createData =(req,res) =>{
 
   const newId = tours[tours.length-1].id + 1;
   const newTour = Object.assign({id:newId},req.body)
@@ -55,9 +51,9 @@ app.post("/api/v1/tours",(req,res) =>{
       }
     })
   }) 
-})
+}
 
-app.patch("/api/v1/tours/:id",(req,res) => {
+const updateData = (req,res) => {
   
   const obj = req.body;
 
@@ -89,15 +85,14 @@ app.patch("/api/v1/tours/:id",(req,res) => {
       tour
     }
   })
-})
+}
 
-app.delete("/api/v1/tours/:id",(req,res) =>{
+const deleteData = (req,res) =>{
 
   const tour = tours.findIndex(element => element.id === req.params.id * 1)
   
   tours.splice(tour-1,tour+1)
   
-  console.log(tours)
 
   if(!tour){
     return res.status(404).json({
@@ -108,10 +103,34 @@ app.delete("/api/v1/tours/:id",(req,res) =>{
 
   res.json({
     status:200,
-    data:null
+    results: tours.length,
+    data:tours
   })
 
-})
+}
+
+
+// // app.get("/api/v1/tours",getAllData)
+// app.get("/api/v1/tours/:id",getDataById)
+// // app.post("/api/v1/tours",createData)
+// app.patch("/api/v1/tours/:id",updateData)
+// app.delete("/api/v1/tours/:id",deleteData)
+
+
+app.route("/api/v1/tours").get(getAllData).post(createData)
+app.route("/api/v1/tours/:id").get(getDataById).patch(updateData).delete(deleteData)
+
+
+
+
+
+
+
+
+
+
+
+
 
 app.listen(port,() =>{
   console.log(`App running on port ${port}`)
