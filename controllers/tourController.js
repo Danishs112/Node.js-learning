@@ -2,6 +2,31 @@ const fs = require("fs");
 
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/../test.json`));
 
+
+exports.checkId  = (req,res,next,val) =>{
+  const data = tours.find((element) => element.id === req.params.id * 1);
+ 
+  if (!data) {
+    return res.status(404).json({
+      status: "failed",
+      message: "invalid response",
+    });
+  }
+  next()
+}
+
+
+exports.checkBody = (req,res,next) =>{
+  if(!req.body.name || !req.body.age){
+    return res.status(404).json({
+      status:"error",
+      message: "please fill the valid data on the request"
+    })
+  }
+  next();
+}
+
+
 exports.getAllData = (req, res) => {
     res.status(200).json({
       status: 200,
@@ -15,12 +40,6 @@ exports.getAllData = (req, res) => {
 exports.getDataById = (req, res) => {
     console.log(req.requestTime);
     const tour = tours.find((element) => element.id == req.params.id);
-    if (!tour) {
-      res.json({
-        status: 404,
-        message: "Invalid Id",
-      });
-    }
     res.json({
       status: 200,
       requestTime: req.requestTime,
@@ -30,7 +49,9 @@ exports.getDataById = (req, res) => {
       },
     });
   };
-  
+ 
+  const testFunction = () => tours;
+
 exports.createData = (req, res) => {
     const newId = tours[tours.length - 1].id + 1;
     const newTour = Object.assign({ id: newId }, req.body);
@@ -41,20 +62,17 @@ exports.createData = (req, res) => {
         status: 201,
         data: {
           tour: newTour,
+          data: testFunction(req,res)
         },
       });
     });
+
   };
   
 exports.updateData = (req, res) => {
     const obj = req.body;
+    
   
-    if (req.params.id * 1 > tours.length) {
-      return res.status(404).json({
-        status: "fail",
-        message: "Invalid Id",
-      });
-    }
   
     const tour = tours.find((element) => element.id == req.params.id);
     // if(Object.keys(obj) in tour){
@@ -81,12 +99,6 @@ exports.updateData = (req, res) => {
 exports.deleteData = (req, res) => {
     const tour = tours.findIndex((element) => element.id === req.params.id * 1);
     tours.splice(tour - 1, tour + 1);
-    if (!tour) {
-      return res.status(404).json({
-        status: "failed",
-        message: "invalid response",
-      });
-    }
     res.json({
       status: 200,
       results: tours.length,
